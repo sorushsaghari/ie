@@ -1,0 +1,11 @@
+package user
+
+import "github.com/gin-gonic/gin"
+
+func Routers(r *gin.Engine) {
+	user := r.Group("/user")
+	user.GET("/", RegisterPage)
+	user.POST("/", Register)
+	
+
+}
