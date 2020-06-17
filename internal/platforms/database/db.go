@@ -1,14 +1,15 @@
 package database
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 var db *gorm.DB
 
-func Init() error {
-	DB, err := gorm.Open("mysql", "user:password@localhost/dbname:port?charset=utf8&parseTime=True&loc=Local")
+func Init(password string, user string, port int, dbname string, host string) error {
+	DB, err := gorm.Open("postgres", fmt.Sprintf("postgresql://%s:%s@%s:%d/%s?connect_timeout=10&sslmode=disable", user, password, host, port, dbname))
 	if err != nil {
 		return err
 	}

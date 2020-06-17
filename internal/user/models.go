@@ -14,3 +14,6 @@ type User struct {
 	Avatar string
 }
 
+func One()  {
+
+}
