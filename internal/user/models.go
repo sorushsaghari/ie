@@ -10,20 +10,33 @@ import (
 
 type User struct {
 	gorm.Model
-	Name string
-	Family string
+	Name     string
+	Family   string
 	Username string
-	Email string `gorm:"unique;not null"`
+	Email    string `gorm:"unique;not null"`
 	Password string
-	Avatar string
+	Avatar   string
 }
 
 type Auth struct {
 	gorm.Model
 	UserID uint
-	Token string
+	Token  string
 }
+
 func Store(auth *Auth) error {
+	if err := database.DB().Where("user_id=?", auth.UserID).First(&Auth{
+		UserID: auth.UserID,
+	}).RecordNotFound(); err == true {
+
+		db := database.DB().Where("id=?", auth.ID).Update(&auth).GetErrors()
+		if len(db) != 0 {
+			log.Println(db)
+			return db[0]
+		}
+		return nil
+	}
+
 	db := database.DB().Create(&auth).GetErrors()
 	if len(db) != 0 {
 		log.Println(db)
@@ -45,7 +58,7 @@ func UserByToken(token string) (*User, error) {
 	}
 	return &user, nil
 }
-func Create(user *User)	error {
+func Create(user *User) error {
 	db := database.DB().Create(&user).GetErrors()
 	if len(db) != 0 {
 		log.Println(db)
