@@ -31,6 +31,20 @@ func Store(auth *Auth) error {
 	}
 	return nil
 }
+
+func UserByToken(token string) (*User, error) {
+	user := User{}
+	auth := Auth{Token: token}
+	err := database.DB().Debug().First(&auth).Error
+	if err != nil {
+		return nil, err
+	}
+	err = database.DB().Debug().Where("id=?", auth.UserID).First(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
 func Create(user *User)	error {
 	db := database.DB().Create(&user).GetErrors()
 	if len(db) != 0 {

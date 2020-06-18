@@ -1,5 +1,6 @@
 package user
 
+import "C"
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/sorushsaghari/ie/internal/user"
