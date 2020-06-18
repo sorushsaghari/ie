@@ -20,7 +20,7 @@ func main(){
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	database.DB().AutoMigrate(u.User{})
+	database.DB().AutoMigrate(u.User{}, u.Auth{})
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/**/*")
 	user.Routers(router)
