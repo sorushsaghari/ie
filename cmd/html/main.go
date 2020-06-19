@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
+	"github.com/sorushsaghari/ie/cmd/html/internal/note"
 	"github.com/sorushsaghari/ie/cmd/html/internal/user"
 	n "github.com/sorushsaghari/ie/internal/note"
 	"github.com/sorushsaghari/ie/internal/platforms/cfg"
@@ -25,5 +26,6 @@ func main(){
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/**/*")
 	user.Routers(router)
+	note.Routers(router)
 	router.Run()
 }

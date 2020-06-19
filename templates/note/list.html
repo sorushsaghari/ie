@@ -5,7 +5,7 @@
     <title>{{ .Title}}</title>
 </head>
 <body>
-{{with Notes}}
+{{with .Notes}}
     <ul>
     {{range $i,$v := .Notes}}
         <li><a href="note/{{.User.ID}}/{{$v.ID}}">{{$v.Title}}</a></li>
