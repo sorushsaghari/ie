@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sorushsaghari/ie/internal/user"
 	"net/http"
+	"time"
 )
 
 func Register(c *gin.Context) {
@@ -49,9 +50,12 @@ func Login(c *gin.Context){
 		})
 		return
 	}
-	var auth user.Auth
-	auth.Token = user.TokenGenerator()
-	auth.UserID = u.ID
+	tomorrow := time.Now().AddDate(0, 0, 1)
+	auth := user.Auth{
+		Token: user.TokenGenerator(),
+		UserID: u.ID,
+		TimeOut: &tomorrow,
+	}
 	if err = user.Store(&auth);err != nil {
 		c.HTML(http.StatusBadRequest, "error.html", gin.H{
 			"Error": err.Error(),

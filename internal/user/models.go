@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/sorushsaghari/ie/internal/platforms/database"
 	"log"
+	"time"
 )
 
 type User struct {
@@ -22,13 +23,13 @@ type Auth struct {
 	gorm.Model
 	UserID uint
 	Token  string
+	TimeOut *time.Time
 }
 
 func Store(auth *Auth) error {
 	if err := database.DB().Where("user_id=?", auth.UserID).First(&Auth{
 		UserID: auth.UserID,
 	}).RecordNotFound(); err == true {
-
 		db := database.DB().Where("id=?", auth.ID).Update(&auth).GetErrors()
 		if len(db) != 0 {
 			log.Println(db)
