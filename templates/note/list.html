@@ -7,8 +7,8 @@
 <body>
 {{with Notes}}
     <ul>
-    {{range $i,$v := Notes}}
-        <li><a href="note/{{.User.ID}}/{{$v.ID}}">{{$v.Title}}</li>
+    {{range $i,$v := .Notes}}
+        <li><a href="note/{{.User.ID}}/{{$v.ID}}">{{$v.Title}}</a></li>
     {{end}}
     </ul>
 {{end}}

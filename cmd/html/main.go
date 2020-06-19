@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/sorushsaghari/ie/cmd/html/internal/user"
+	n "github.com/sorushsaghari/ie/internal/note"
 	"github.com/sorushsaghari/ie/internal/platforms/cfg"
 	"github.com/sorushsaghari/ie/internal/platforms/database"
 	u "github.com/sorushsaghari/ie/internal/user"
@@ -20,7 +21,7 @@ func main(){
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	database.DB().AutoMigrate(u.User{}, u.Auth{})
+	database.DB().AutoMigrate(u.User{}, u.Auth{}, n.Note{})
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/**/*")
 	user.Routers(router)
