@@ -14,16 +14,26 @@ func IsAuthenticated() gin.HandlerFunc {
 		fmt.Println("im here")
 		token, err := c.Cookie("token")
 		if err != nil {
-			c.Redirect(http.StatusFound, "/user/login")
+			c.HTML(http.StatusUnauthorized, "login.html", gin.H{
+				"Title": "login",
+			})
+			return
 		}
 
 		u, timeout, err := user.UserByToken(token)
 		if err != nil {
-			c.Redirect(http.StatusFound, "/user/login")
+			c.HTML(http.StatusUnauthorized, "login.html", gin.H{
+				"Title": "login",
+			})
+			return
 		}
 		if time.Now().After(*timeout){
-				c.Redirect(http.StatusFound, "/user/login")
+			c.HTML(http.StatusUnauthorized, "login.html", gin.H{
+				"Title": "login",
+			})
+			return
 		}
 		c.Set("user", u)
+		return
 	}
 }

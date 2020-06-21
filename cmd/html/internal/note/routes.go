@@ -9,5 +9,5 @@ func Routers(r *gin.Engine) {
 	note := r.Group("/note")
 	note.Use(middleware.IsAuthenticated())
 	note.GET("/", Index)
-	//note.GET("/:id", Detail)
+	note.GET("/:id", Detail)
 }

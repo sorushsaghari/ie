@@ -31,3 +31,12 @@ func Find(userId uint) ([] *Note, error){
 	}
 	return notes, nil
 }
+func One(id uint) (*Note, error) {
+	result := Note{}
+	err := database.DB().Where("id=?", id).First(&result).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
