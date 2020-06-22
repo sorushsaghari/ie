@@ -23,8 +23,8 @@ func Create(note Note) error {
 
 }
 
-func Find(userId uint) ([] *Note, error){
-	notes := make([]*Note,1)
+func Find(userId uint) ([] Note, error){
+	notes := make([]Note,1)
 	errs := database.DB().Where("user_id=?", userId).Find(&notes).Error
 	if errs != nil {
 		return nil, errs

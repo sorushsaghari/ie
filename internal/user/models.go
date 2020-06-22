@@ -21,16 +21,15 @@ type User struct {
 
 type Auth struct {
 	gorm.Model
-	UserID uint
-	Token  string
+	UserID  uint
+	Token   string
 	TimeOut *time.Time
 }
 
 func Store(auth *Auth) error {
-	if err := database.DB().Where("user_id=?", auth.UserID).First(&Auth{
-		UserID: auth.UserID,
-	}).RecordNotFound(); err == true {
-		db := database.DB().Where("id=?", auth.ID).Update(&auth).GetErrors()
+	if err := database.DB().Where("user_id=?", auth.UserID).First(&Auth{}).RecordNotFound(); err == false {
+		fmt.Println(auth)
+		db := database.DB().Debug().Model(&Auth{}).Where("user_id=?", auth.UserID).Update(&auth).GetErrors()
 		if len(db) != 0 {
 			log.Println(db)
 			return db[0]

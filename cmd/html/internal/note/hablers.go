@@ -1,48 +1,46 @@
 package note
 
 import (
-	"github.com/gin-gonic/gin"
+	"fmt"
+	"github.com/labstack/echo/v4"
 	"github.com/sorushsaghari/ie/internal/note"
 	"github.com/sorushsaghari/ie/internal/user"
 	"net/http"
 	"strconv"
 )
 
-func Index(c *gin.Context){
-	u, _ := c.Get("user")
-
-	notes, err := note.Find(u.(user.User).ID)
+func Index(c echo.Context) error{
+	u:= c.Get("user")
+	notes, err := note.Find(u.(*user.User).ID)
 	if err != nil {
-		c.HTML(http.StatusBadRequest, "error.html", gin.H{
+		return c.Render(http.StatusBadRequest, "error.html", map[string]interface{}{
 			"Error": err.Error(),
 		})
-		return
+
 	}
-	c.HTML(http.StatusOK, "list.html", gin.H{
+	return c.Render(http.StatusOK, "list.html", map[string]interface{}{
 		"Title": "user list",
 		"Notes": notes,
 	})
-	return
 }
 
-func Detail(c *gin.Context) {
+func Detail(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
+	fmt.Println("test")
 	if err != nil {
-		c.HTML(http.StatusBadRequest, "error.html", gin.H{
+		return c.Render(http.StatusBadRequest, "error.html", map[string]interface{}{
 			"Error": err.Error(),
 		})
-		return
 	}
-	note, err := note.One(uint(id))
+	n, err := note.One(uint(id))
 	if err != nil {
-		c.HTML(http.StatusBadRequest, "error.html", gin.H{
+		return c.Render(http.StatusBadRequest, "error.html", map[string]interface{}{
 			"Error": err.Error(),
 		})
-		return
+
 	}
-	c.HTML(http.StatusOK, "detail.html", gin.H{
+	return c.Render(http.StatusOK, "detail.html", map[string]interface{}{
 		"Title": "user list",
-		"Notes": note,
+		"Note": note.NewDto(*n),
 	})
-	return
 }

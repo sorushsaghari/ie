@@ -1,10 +1,10 @@
 package user
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 )
 
-func Routers(r *gin.Engine) {
+func Routers(r *echo.Echo) {
 	user := r.Group("/user")
 	user.GET("/", RegisterPage)
 	user.POST("/", Register)

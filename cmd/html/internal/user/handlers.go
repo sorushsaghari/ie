@@ -2,53 +2,51 @@ package user
 
 import "C"
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 	"github.com/sorushsaghari/ie/internal/user"
 	"net/http"
 	"time"
 )
 
-func Register(c *gin.Context) {
+func Register(c echo.Context) error {
 	var body user.CreateDto
-	if err := c.ShouldBind(&body); err != nil {
-		c.HTML(http.StatusBadRequest, "error.html", gin.H{
+	if err := c.Bind(&body); err != nil {
+		return c.Render(http.StatusBadRequest, "error.Render", map[string]interface{}{
 			"Error": err.Error(),
 		})
-		return
+		//return
 	}
 	if err := user.Create(body.Parse()); err != nil {
-		c.HTML(http.StatusBadRequest, "error.html", gin.H{
+		return c.Render(http.StatusBadRequest, "error.Render", map[string]interface{}{
 			"Error": err.Error(),
 		})
-		return
+
 	}
-	c.String(http.StatusOK, "done")
-	return
+	return c.String(http.StatusOK, "done")
+
 }
 
-func RegisterPage(c *gin.Context){
-	c.HTML(http.StatusOK, "user.html", gin.H{})
-	return
+func RegisterPage(c echo.Context) error{
+	return c.Render(http.StatusOK, "user.Render", map[string]interface{}{})
 }
 
-func LoginPage(c *gin.Context){
-	c.HTML(http.StatusOK, "login.html", nil)
-	return
+func LoginPage(c echo.Context) error{
+	return c.Render(http.StatusOK, "login.html", map[string]interface{}{
+		"TItle": "login",
+	})
 }
-func Login(c *gin.Context){
+func Login(c echo.Context) error{
 	var body user.Dto
-	if err := c.ShouldBind(&body); err != nil {
-		c.HTML(http.StatusBadRequest, "error.html", gin.H{
+	if err := c.Bind(&body); err != nil {
+		return c.Render(http.StatusBadRequest, "error.Render", map[string]interface{}{
 			"Error": err.Error(),
 		})
-		return
 	}
 	u, err := user.One(body.Parse())
 	if err != nil || u == nil {
-		c.HTML(http.StatusBadRequest, "error.html", gin.H{
+		return c.Render(http.StatusBadRequest, "error.Render", map[string]interface{}{
 			"Error": err.Error(),
 		})
-		return
 	}
 	tomorrow := time.Now().AddDate(0, 0, 1)
 	auth := user.Auth{
@@ -57,12 +55,21 @@ func Login(c *gin.Context){
 		TimeOut: &tomorrow,
 	}
 	if err = user.Store(&auth);err != nil {
-		c.HTML(http.StatusBadRequest, "error.html", gin.H{
+		return c.Render(http.StatusBadRequest, "error.Render", map[string]interface{}{
 			"Error": err.Error(),
 		})
-		return
+
 	}
-	c.SetCookie("token", auth.Token, 3600, "*", "127.0.0.1", false, true)
-	c.String(http.StatusOK, "log in was successful")
-	return
+
+	c.SetCookie(&http.Cookie{
+		Name:       "token",
+		Value:      auth.Token,
+		Path:       "/",
+		Domain:     "127.0.0.1",
+		Expires:    time.Now().AddDate(0, 0, 1),
+		Secure:     false,
+		HttpOnly:   true,
+	})
+	return c.String(http.StatusOK, "log in was successful")
+
 }

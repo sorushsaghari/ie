@@ -1,13 +1,20 @@
 package note
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 	"github.com/sorushsaghari/ie/cmd/html/internal/middleware"
 )
 
-func Routers(r *gin.Engine) {
-	note := r.Group("/note")
-	note.Use(middleware.IsAuthenticated())
-	note.GET("/", Index)
+func Routers(r *echo.Echo) {
+	note := r.Group("note")
+	//note.Use()
+	note.Use(middleware.IsAuthenticated)
+	note.GET("", Index)
 	note.GET("/:id", Detail)
+	//note.GET("/shit", func(c echo.Context) error{
+	//	return c.Render(http.StatusOK, "list.html", map[string]interface{}{
+	//		"Title": "list",
+	//	})
+	//})
+	//note.GET("/:id",middleware.IsAuthenticated(), Detail)
 }
