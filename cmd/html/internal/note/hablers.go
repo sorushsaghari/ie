@@ -44,3 +44,21 @@ func Detail(c echo.Context) error {
 		"Note": note.NewDto(*n),
 	})
 }
+
+func Delete(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.Render(http.StatusBadRequest, "error.html", map[string]interface{}{
+			"Error": err.Error(),
+		})
+	}
+	err = note.Delete(uint(id))
+	if err != nil {
+		return c.Render(http.StatusBadRequest, "error.html", map[string]interface{}{
+			"Error": err.Error(),
+		})
+
+	}
+
+	return c.Redirect(http.StatusFound, "/note")
+}

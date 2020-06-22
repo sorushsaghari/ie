@@ -40,3 +40,6 @@ func One(id uint) (*Note, error) {
 
 	return &result, nil
 }
+func Delete(id uint) error {
+	return database.DB().Where("id=?", id).Delete(&Note{}).Error
+}
