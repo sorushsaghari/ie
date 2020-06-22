@@ -41,7 +41,7 @@ func Detail(c echo.Context) error {
 	}
 	return c.Render(http.StatusOK, "detail.html", map[string]interface{}{
 		"Title": "user list",
-		"Note": note.NewDto(*n),
+		"Note": note.NewReadDto(*n),
 	})
 }
 

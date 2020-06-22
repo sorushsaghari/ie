@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/sorushsaghari/ie/internal/user"
 	"net/http"
@@ -10,7 +9,6 @@ import (
 func IsAuthenticated(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		token, err := c.Cookie("token")
-		fmt.Println(token)
 		if err != nil {
 			return c.Redirect(http.StatusUnauthorized, "/user/login")
 		}
@@ -23,7 +21,6 @@ func IsAuthenticated(next echo.HandlerFunc) echo.HandlerFunc {
 		if time.Now().After(*timeout){
 			return c.Redirect(http.StatusUnauthorized, "/user/login")
 		}
-		fmt.Println("here")
 		c.Set("user", u)
 		return next(c)
 	}
