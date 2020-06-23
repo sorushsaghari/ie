@@ -5,13 +5,11 @@
     <title>{{ .Title}}</title>
 </head>
 <body>
-{{/*{{with .Notes}}*/}}
     <ul>
     {{range .Notes}}
         <li><a href="note/{{.ID}}">{{.Topic}}</a></li>
     {{end}}
     </ul>
 <p>test</p>
-{{/*{{end}}*/}}
 </body>
 </html>
