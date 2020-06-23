@@ -43,3 +43,7 @@ func One(id uint) (*Note, error) {
 func Delete(id uint) error {
 	return database.DB().Where("id=?", id).Delete(&Note{}).Error
 }
+
+func Edit(id uint, u *Note) error {
+	return database.DB().Debug().Model(u).Where("id=?", id).Updates(u).Error
+}

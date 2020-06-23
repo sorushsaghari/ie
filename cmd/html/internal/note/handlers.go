@@ -63,3 +63,21 @@ func Delete(c echo.Context) error {
 	return c.Redirect(http.StatusFound, "/note")
 }
 
+func Edit(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.Render(http.StatusBadRequest, "error.html", echo.Map{
+			"Error": err.Error(),
+		})
+	}
+	var body note.Dto
+	c.Bind(body)
+	err = note.Edit(uint(id), body.Parse())
+	if err != nil {
+		return c.Render(http.StatusBadRequest, "error.html", echo.Map{
+			"Error": err.Error(),
+		})
+
+	}
+	return c.Render(http.StatusOK, "detail.html", nil)
+}
