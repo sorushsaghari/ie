@@ -12,10 +12,5 @@ func Routers(r *echo.Echo) {
 	note.GET("", Index)
 	note.GET("/:id", Detail)
 	note.DELETE("/:id", Delete)
-	//note.GET("/shit", func(c echo.Context) error{
-	//	return c.Render(http.StatusOK, "list.html", map[string]interface{}{
-	//		"Title": "list",
-	//	})
-	//})
-	//note.GET("/:id",middleware.IsAuthenticated(), Detail)
+	note.PATCH("/:id", Edit)
 }
