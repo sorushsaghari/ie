@@ -7,7 +7,7 @@
 <body>
 <p>test</p>
 <a>{{ .Note.Topic}}</a>
-<form action="note/{{.Note.ID}}" method="DELETE">
+<form action="delete/{{.Note.ID}}" method="GET">
     <input type="submit" value="Delete">
 </form>
 <form action="edit/{{.Note.ID}}" method="GET">
