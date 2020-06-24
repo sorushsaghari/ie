@@ -5,11 +5,11 @@
     <title>{{ .Title}}</title>
 </head>
 <body>
-<form action="/note/{{.Note.ID}}" method="POST">
+<form action="/note/edit/{{.Note.ID}}" method="POST">
     <label>Topic</label><br/>
-    <input type="text" name="email" value="{{Note.Topic}}"><br/>
+    <input type="text" name="topic" value="{{ .Note.Topic}}"><br/>
     <label>Text</label><br/>
-    <input type="password" name="password" value="{{ .Note.Text}}"><br/>
+    <input type="text" name="text" value="{{ .Note.Text}}"><br/>
     <input type="submit">
 </form>
 </body>

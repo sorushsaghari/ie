@@ -45,5 +45,5 @@ func Delete(id uint) error {
 }
 
 func Edit(id uint, u *Note) error {
-	return database.DB().Debug().Model(u).Where("id=?", id).Updates(u).Error
+	return database.DB().Debug().Model(&u).Where("id=?", id).Updates(&u).Error
 }

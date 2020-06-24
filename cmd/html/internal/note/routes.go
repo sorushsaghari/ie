@@ -12,5 +12,6 @@ func Routers(r *echo.Echo) {
 	note.GET("", Index)
 	note.GET("/:id", Detail)
 	note.DELETE("/:id", Delete)
-	note.PATCH("/:id", Edit)
+	note.POST("/edit/:id", Edit)
+	note.GET("/edit/:id", GetEdit)
 }
