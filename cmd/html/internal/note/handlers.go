@@ -104,3 +104,35 @@ func Edit(c echo.Context) error {
 	}
 	return c.Redirect(http.StatusFound, fmt.Sprintf("/note/%d", id))
 }
+
+func GetCreate(c echo.Context) error {
+	return c.Render(http.StatusOK, "create.html", echo.Map{
+		"Title": "create a note",
+	})
+}
+func Create(c echo.Context) error {
+	fmt.Println("here")
+	u := c.Get("user").(*user.User)
+	fmt.Println("here1")
+	if u == nil {
+		return c.Render(http.StatusBadRequest, "error.html", echo.Map{
+			"Error": "user not found",
+		})
+	}
+	var body note.CreateDto
+	err := c.Bind(&body)
+	body.UserID = u.ID
+	if err != nil {
+		return c.Render(http.StatusBadRequest, "error.html", echo.Map{
+			"Error": err.Error(),
+		})
+	}
+	err = note.Create(body.Parse())
+	if err != nil {
+		return c.Render(http.StatusBadRequest, "error.html", echo.Map{
+			"Error": err.Error(),
+		})
+
+	}
+	return c.Redirect(http.StatusFound, "/note")
+}

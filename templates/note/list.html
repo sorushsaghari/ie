@@ -5,11 +5,14 @@
     <title>{{ .Title}}</title>
 </head>
 <body>
-    <ul>
+<ul>
     {{range .Notes}}
         <li><a href="note/{{.ID}}">{{.Topic}}</a></li>
     {{end}}
-    </ul>
+</ul>
 <p>test</p>
+<form action="/note/create" method="GET">
+    <input type="submit" value="new note">
+</form>
 </body>
 </html>

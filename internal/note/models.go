@@ -13,7 +13,7 @@ type Note struct {
 	Topic  string
 }
 
-func Create(note Note) error {
+func Create(note *Note) error {
 	db := database.DB().Create(&note).GetErrors()
 	if len(db) != 0 {
 		log.Println(db)
