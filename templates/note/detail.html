@@ -5,13 +5,66 @@
     <title>{{ .Title}}</title>
 </head>
 <body>
-<p>test</p>
-<a>{{ .Note.Topic}}</a>
-<form action="delete/{{.Note.ID}}" method="GET">
-    <input type="submit" value="Delete">
-</form>
-<form action="edit/{{.Note.ID}}" method="GET">
-    <input type="submit" value="Edit">
-</form>
-</body>
+<h1>{{ .Note.Topic}}</h1>
+<div class="blue-square-container">
+    <div class="blue-square"><p style="margin: 5%">{{.Note.Text}}</p></div>
+    <form action="delete/{{.Note.ID}}" method="GET">
+        <div class="btn-block" style="margin-top: 20px;">
+            <button type="submit" href="/">DELETE</button>
+        </div>
+    </form>
+    <form action="edit/{{.Note.ID}}" method="GET">
+        <div class="btn-block" style="margin-top: 20px;">
+            <button type="submit" href="/">EDIT</button>
+        </div>
+    </form>
+</div>
+<</body>
 </html>
+<style>
+
+    h1,
+    h3 {
+        text-align: center;
+    }
+
+    .blue-square-container {
+        text-align: center;
+        /*width: 50%;*/
+    }
+
+    .blue-square {
+        background-color: lightpink;
+        width: 50%;
+        display: inline-block;
+        text-align: left;
+    }
+
+    .btn-block {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    button{
+        margin-left: 1%;
+        width: 10%;
+        padding: 10px 0;
+        border-radius: 5px;
+        border: none;
+        background: #1c87c9;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+    }
+    a{
+        width: 10%;
+        padding: 10px 0;
+        margin: 10px auto;
+        border-radius: 5px;
+        border: none;
+        background: lawngreen;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+    }
+</style>

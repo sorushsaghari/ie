@@ -5,11 +5,11 @@
     <title>{{ .Title}}</title>
 </head>
 <body>
-<form action="/note" method="POST">
+<form id="create" action="/note" method="POST">
     <label>Topic</label><br/>
     <input type="text" name="topic"><br/>
     <label>Text</label><br/>
-    <input type="text" name="text"><br/>
+    <textarea form="create" name="text">enter note text here</textarea><br/>
     <input type="submit">
 </form>
 </body>

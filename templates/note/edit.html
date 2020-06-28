@@ -6,11 +6,11 @@
 </head>
 <body>
 <div style="background: aqua">
-<form action="/note/edit/{{.Note.ID}}" method="POST">
+<form action="/note/edit/{{.Note.ID}}" method="POST" id="edit">
     <label>Topic</label><br/>
     <input type="text" name="topic" value="{{ .Note.Topic}}"><br/>
     <label>Text</label><br/>
-    <input type="text" name="text" value="{{ .Note.Text}}"><br/>
+    <textarea form="edit" name="text">{{.Note.Text}}</textarea><br/>
     <input type="submit">
 </form>
 </div>

@@ -8,7 +8,8 @@
 <form action="/note/create" method="GET">
     <div class="btn-block" style="margin-top: 20px">
         <button type="submit" href="/">NEW</button>
-    </div></form>
+    </div>
+</form>
 <ul>
     {{range .Notes}}
         <li><a href="note/{{.ID}}">{{.Topic}}</a></li>
@@ -24,7 +25,7 @@
         text-align: center;
     }
 
-    button{
+    button {
         margin-left: 1%;
         width: 10%;
         padding: 10px 0;
@@ -35,7 +36,8 @@
         font-weight: 600;
         color: #fff;
     }
-    a{
+
+    a {
         width: 10%;
         padding: 10px 0;
         margin: 10px auto;
