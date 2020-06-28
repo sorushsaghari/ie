@@ -16,7 +16,6 @@ func Index(c echo.Context) error{
 		return c.Render(http.StatusBadRequest, "error.html", echo.Map{
 			"Error": err.Error(),
 		})
-
 	}
 	return c.Render(http.StatusOK, "list.html", echo.Map{
 		"Title": "user list",
@@ -111,9 +110,7 @@ func GetCreate(c echo.Context) error {
 	})
 }
 func Create(c echo.Context) error {
-	fmt.Println("here")
 	u := c.Get("user").(*user.User)
-	fmt.Println("here1")
 	if u == nil {
 		return c.Render(http.StatusBadRequest, "error.html", echo.Map{
 			"Error": "user not found",
@@ -132,7 +129,6 @@ func Create(c echo.Context) error {
 		return c.Render(http.StatusBadRequest, "error.html", echo.Map{
 			"Error": err.Error(),
 		})
-
 	}
 	return c.Redirect(http.StatusFound, "/note")
 }

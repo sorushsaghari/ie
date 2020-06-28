@@ -4,15 +4,47 @@
     <meta charset="UTF-8">
     <title>{{ .Title}}</title>
 </head>
-<body>
+<body style="background: darkgrey">
+<form action="/note/create" method="GET">
+    <div class="btn-block" style="margin-top: 20px">
+        <button type="submit" href="/">NEW</button>
+    </div></form>
 <ul>
     {{range .Notes}}
         <li><a href="note/{{.ID}}">{{.Topic}}</a></li>
     {{end}}
 </ul>
-<p>test</p>
-<form action="/note/create" method="GET">
-    <input type="submit" value="new note">
-</form>
+
 </body>
 </html>
+
+<style>
+    .btn-block {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    button{
+        margin-left: 1%;
+        width: 10%;
+        padding: 10px 0;
+        border-radius: 5px;
+        border: none;
+        background: #1c87c9;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+    }
+    a{
+        width: 10%;
+        padding: 10px 0;
+        margin: 10px auto;
+        border-radius: 5px;
+        border: none;
+        background: lawngreen;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+    }
+
+</style>

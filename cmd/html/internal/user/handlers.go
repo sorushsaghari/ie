@@ -70,6 +70,6 @@ func Login(c echo.Context) error{
 		Secure:     false,
 		HttpOnly:   true,
 	})
-	return c.String(http.StatusOK, "log in was successful")
+	return c.Redirect(http.StatusFound, "/note")
 
 }

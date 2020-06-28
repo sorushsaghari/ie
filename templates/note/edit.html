@@ -5,6 +5,7 @@
     <title>{{ .Title}}</title>
 </head>
 <body>
+<div style="background: aqua">
 <form action="/note/edit/{{.Note.ID}}" method="POST">
     <label>Topic</label><br/>
     <input type="text" name="topic" value="{{ .Note.Topic}}"><br/>
@@ -12,5 +13,6 @@
     <input type="text" name="text" value="{{ .Note.Text}}"><br/>
     <input type="submit">
 </form>
+</div>
 </body>
 </html>
